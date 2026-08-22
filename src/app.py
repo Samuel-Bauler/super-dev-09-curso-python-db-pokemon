@@ -2,11 +2,12 @@ from fastapi import FastAPI
 from pathlib import Path
 import sys
 
-from controllers import calculadora_cotrollers
 
 # Permite rodar com `py src/app.py`: coloca a raiz do projeto no sys.path
 # para que os imports `from src import . ` funcionem corretamente
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
+from src.controllers import calculadora_cotrollers, categoria_controller
 
 app = FastAPI(
     title= "Pokemon API",
@@ -14,7 +15,8 @@ app = FastAPI(
     version="0.1.0"
 )
 
-app.include_route(calculadora_controllers.router)
+app.include_router(calculadora_cotrollers.router)
+app.include_router(categoria_controller.router)
 
 if __name__ == "__main__":
     import uvicorn
